@@ -1,0 +1,55 @@
+// @import '_em.scss';
+// @import '_percento.scss';
+// @import '_clearfix.scss';
+@import '_border-box.scss';
+@import 'http://fonts.googleapis.com/css?family=Montserrat:300,400,700';
+
+
+header h1 {
+    margin: 0 0 20px;
+    text-align: center;
+    color: brown;
+    font-size: 2em;
+    border-bottom: solid 2px coral;
+}
+
+footer h4 {
+    text-align: center;
+    border-top: solid 2px coral;
+    font-size: 1em;
+}
+
+
+body {
+    color: #444;
+    font-family: Montserrat;
+    background: #eee;
+    padding: 20px;
+}
+
+table {
+    color: #fff;
+    background: #34495E;
+    border-collapse: collapse;
+    border-radius: 8px;
+    text-align: right;
+}
+
+thead th {
+    text-transform: capitalize;
+}
+
+th, td {
+    padding: 16px 18px;
+    border-bottom: 1px solid #46627f;
+}
+
+tfoot td {
+    color: #dd5;
+    font-weight: bold;
+    border: none;
+}
+
+.odd {
+    background-color: #40576E;
+}

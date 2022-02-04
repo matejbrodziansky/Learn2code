@@ -1,0 +1,54 @@
+@import 'http://fonts.googleapis.com/css?family=Montserrat:300,400,700';
+body {
+
+    text-align: center;
+    color: #444;
+    font-family: Montserrat;
+    background: #e4e2d1;
+ 
+    -webkit-font-smoothing: antialiased;
+}
+
+.pullquote-right {
+    float: right;
+}
+
+.pullquote-left {
+    float: left;
+}
+
+.container {
+    width: 80%;
+    margin:  0 auto;
+}
+
+.container {
+    border-bottom: 3px solid gray;
+  
+}
+
+ul a {
+    font-weight: bold;
+    color: gray;
+}
+
+li {
+     list-style: none ; 
+     display: inline-block;
+     margin-right: 1.2%;
+     margin-top: 3%;
+    
+}
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+}
+
+
+.selected {
+    color: black;
+}
+

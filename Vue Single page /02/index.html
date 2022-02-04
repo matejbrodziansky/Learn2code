@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/01/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/01/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+
+            <li class="dude" v-for="dude in characters">
+                <a class="ctrl" @click.prevent="remove(dude)">x</a>
+                <article :class="{ faded: dude.cool < 10, gold: dude.cool > 50}">
+                    {{dude.who}}
+                    <span>
+                        {{dude.wat}}
+                    </span>
+                </article>
+
+                <input class="ctrl" type="number" v-model.number="dude.cool">
+            </li>
+
+            <form class="add-new" @keydown.enter="add">
+                <input type="text" v-model="newWho">
+                <input type="text" v-model="newWat">
+            </form>
+
+            <p style="color: aliceblue;" class="preview">
+                {{ newWho}} <br>
+                <small>{{newWat}}</small>
+            </p>
+    </div>
+
+
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                newWho: '',
+                newWat: '',
+                characters: [{
+                    "who": "Finn the human",
+                    "wat": "A silly kid who wants to become great hero one day.",
+                    "cool": 12,
+                }, {
+                    "who": "Jake the dog",
+                    "wat": "Finns best friend is a wise, old dog with big heart.",
+                    "cool": 42,
+                }],
+            },
+            methods: {
+                add() {
+                    this.characters.push({
+                        who: this.newWho,
+                        wat: this.newWat,
+                        cool: 15,
+                    })
+                },
+                remove(dude) {
+                    this.characters = this.characters.filter(item => item !== dude)
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

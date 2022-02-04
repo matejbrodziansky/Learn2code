@@ -1,0 +1,45 @@
+@import 'http://fonts.googleapis.com/css?family=Montserrat:300,400,700';
+body {
+    margin: 0 auto;
+    text-align: center;
+    color: #444;
+    font-family: Montserrat;
+    background: #eee;
+ 
+    -webkit-font-smoothing: antialiased;
+}
+
+
+li {
+    text-align: left;
+    /* list-style: none ; */
+    
+}
+a{
+    text-decoration: none;
+}
+
+oll{
+    margin: 0 auto;
+    
+    text-align: center;
+
+}
+
+.links {
+    margin:  50px;
+    
+}
+
+.links a
+{
+    width: 60px;
+    height: 20px;
+    border: 1px solid gray;
+    padding: 10px 20px;
+    
+}
+
+.images {
+    margin-bottom: 20px;
+}

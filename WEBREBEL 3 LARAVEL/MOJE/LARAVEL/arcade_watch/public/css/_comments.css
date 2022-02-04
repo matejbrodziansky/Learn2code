@@ -1,0 +1,9 @@
+.comment  {
+    margin-top: 1em;
+    font-size: 0.7em;
+    border: rgb(133, 130, 130) 1px solid;
+    background-color: rgb(133, 130, 130);
+    text-align: left;
+    border-radius: 0.5em ;
+}
+

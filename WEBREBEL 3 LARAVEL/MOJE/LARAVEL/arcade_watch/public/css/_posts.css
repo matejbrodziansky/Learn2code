@@ -1,0 +1,17 @@
+/* *{
+    border:  1px solid pink;
+} */
+
+.full{
+    border: grey 1px solid;
+    border-radius: 0.5em ;
+    background-color: grey;
+    height: 7em;
+}
+
+.full .content, footer{ 
+    color: rgb(211, 30, 60);
+    font-size: 1.2rem;
+
+}
+

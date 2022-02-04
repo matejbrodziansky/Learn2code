@@ -1,0 +1,322 @@
+
+od časti 49 - priečinok treba premenovať na todooapp aby fungovalo
+
+
+
+$div = (int) (11/3)    // bude bez desatinneho , float su desatinne 
+
+$item_count = 5;
+item_price  = 500;
+
+$row = 4;
+
+if ( $row % 2 == 0 )         // ak zvysok bude nula tak even parne , keby je v row 5 tak zvysok je 1 a je odd
+{   
+    echo 'even';
+
+} else {
+
+    echo 'odd';
+}
+
+
+///////////////***************************************************
+62 Programovanie - Stringy, apostrofy vs. úvodzovky, zalamovanie textu
+///////////////***************************************************
+
+    v js nie je rozdiel "" '' ale v php je 
+    php vypíše čo je medzi "" čiže aj medzery. medzery za bodkou 
+
+    echo 'i\'m   escapnut apostrof alebo obaliť opačnymi uvodzovkami 
+    to čo je v '' sa nevyhodnocuje, nehlada sa sa hodnota vo vnutri , ale čo je v "" je opak ale je to pomalši vraj čo nebude citit ale dobre vediet 
+
+    
+
+///////////////***************************************************
+63 Programovanie - Skryté znaky, new line, line feed LF, carriage return CR
+///////////////***************************************************
+
+
+echo '<p>' . PHP_EQL   // enter nakonci END OF LINE 
+echo "\t<p>" . PHP_EQL   // enter nakonci END OF LINE 
+mozem dať aj \t\t a treba to mať v "" nie v ''
+\n    da enter za vetou tiež do html zdrojaku  
+\n  - LINE FEED, LF
+\r  - CARRIAGE RETURN , 
+PHP_EOL dosati sa spravna hodnota v zariadeni mac win lin moze byt problem pre xml rss csv 
+
+old mac - \r
+new mac, linux  - \n
+windows -  \r\n
+ 
+///////////////***************************************************
+64 Programovanie - Polia, PHP Array, unset count sort push pop shift unshift
+///////////////***************************************************
+
+
+$badass = "Brienne of Tarh";
+
+$arr = [              // toto funguje od verzie php 5,4 a vyssie inak array ()
+    "Princess Bublegum",
+    "Imperator Furiosa",
+    $badass,
+     "Bulbasaur"
+];
+
+$arr[3] = 'Kamala Khan'  // zmeni prvokl
+$arr[] = 'Kamala Khan'  // vytvori novy prvok do pola
+unset( $arr[3])         // odstráni prvok  ale pozor nebude prečislovanie potom treba if is set kontrolu inak chyba 
+
+echo $arr[1].'<br>';  
+echo $arr[1][0];  vypise prve pismeno
+
+echo '<pre>'
+print_r ( $arr );  pole iba echom nevypíše musi print
+echo '</pre>'
+
+echo coun( $arr ); // spocita počet prvkou v array 
+
+if count( $arr );
+
+if count($arr) {   //vrati hodnotu vacsiu ako 0 ak sa nam podarilo vytiahnuť 
+  //show article
+} else {
+    // say  sorry nothing found
+}
+
+
+sort($arr);  // usporiadna 
+rsort($arr);  // usporiadna reverzne
+
+array_push( $arr, "Lyra Balacqua, "Apuquel Alergik ")  // je dlhšie ale možem sem viac veci natlačiť 
+
+$who = array_pop( $arr );    // vyhodilo z konca radu 
+echo $who;
+
+$who = array_shift $arr );    // vyhodilo z začiatku  radu 
+echo $who;
+
+
+$asshole = 'Donald Trump';
+array-unshift( $arr, $asshole );     // da na začiatok 
+
+
+///////////////***************************************************
+65 Prechádzanie cez polia, cykly, PHP Loops, foreach while
+///////////////***************************************************
+
+echo '<ul class="list-group text-left">';
+foreach ( $arr as $value ) {
+foreach ( $arr as $key => $value ) {   // plny zapis arrayu do kluča sa ulozia hodnoty 
+
+    echo '<li class="list-group-item">'. $value .'</li>';
+    echo "<li class=\"list-group-item\">
+            <small class=\"text-info\">$key &hellip;</small>  // da tri bodky hellip  ellip ellipses  h horizonzal 
+        $value
+       </li>";
+}
+echo '</ul>';
+
+
+
+while ( $arr ) {     // kym podmienka plati bude sa vypisovať
+    //do this  
+    echo array_pop($arr);    // toto vyradí postupne veci z pola a podmienka sa zastavi prestane platit 
+    if ($arr ) echo'<span class="text-warning"> / </span>'  // nevypise sa pri poslednom /
+}
+
+///////////////***************************************************
+66 For loop, vyskočenie z cyklu, continue break, array_filter array_values
+///////////////***************************************************
+
+for ( $i = 0; $i < count($arr); $i++ ) {       // sklada z 3 casti 3 tvrdeni su odelene ; prva sekcia premenne(iterator), druha cast podmienka dokedy sa budeme tocit, tretej sekci povieme co sa stane po iteraci . 
+        echo '<p>'. $i .'</p>>';
+
+}
+
+for ( $i = 1 ; $i <= 1000; $i++ ) {       // sklada z 3 casti 3 tvrdeni su odelene ; prva sekcia premenne(iterator), druha cast podmienka dokedy sa budeme tocit, tretej sekci povieme co sa stane po iteraci . 
+        echo '<p>'. $arr[$i] .'</p>>';
+
+}
+
+unset( $arr[2] );
+pozor ked vymažeme niečo v poli napr. 3 v poradí vypíše zle 
+$arr = array_values( $arr ); // prepočíta kluče 
+
+može sa stať že v premmnej key 2 ostane ale hodnota je prazdna (nebudeme vypisaovať praznotu )
+if ( ! $value ) continue;
+if ( ! $value ) break;  // skonči ked narazí na nieoč čo neexistuje
+ 
+$arr = array_filter($arr)   // odfiltruje prazdne hodnoty  fajn je si prestudovať ju v dokukentacii dokaže kadečo odfiltrovať 
+$arr =  array_values(array_filter($arr)) ;  odfiltruje a prečisluje 
+
+
+
+///////////////***************************************************
+67 Multi-dimenzionálne, asociatívne polia (for real, skutočný názov) vc
+///////////////***************************************************
+//indexed arrays su tie pred tym s čislami 
+
+
+//asociativne polia su toto 
+
+$asshole = 'Donald Trump'
+$arr = [   
+'database_type' => 'mysql',
+'database_name' => 'todo',
+'server' => 'localhost',
+'username' => 'root',
+'password' => 'root',
+'charset' => 'utf8',
+
+];
+
+
+// plny zapis pre pole 
+$arr = [
+    'who' => 'Finn',
+    'wat' => "Haha blabla kkkt hovnoo prd sračka pes mačka blabotačka"
+];
+
+
+//Multi-dimenzionálne pole
+$adventure [     
+    [
+        'who' => 'Finn',
+        'wat' => "Haha blabla kkkt hovnoo prd sračka pes mačka blabotačka"
+    ],
+    [
+        'who' => 'Jake',
+        'wat' => "Haha blabla kkkt hovnoo prd sračka pes mačka blabotačka"
+        'invetory' => ['crown', 'beard']
+    ],
+    [
+        'who' => 'Ice king',
+        'wat' => "Haha blabla kkkt hovnoo prd sračka pes mačka blabotačka"
+    ],
+    [
+        'who' => 'Marcy',
+        'wat' => "Haha blabla kkkt hovnoo prd sračka pes mačka blabotačka"
+    ]
+];
+
+
+foreach ($adventure as $dude) {
+
+    echo "<h3>${dude['who']}</h3>";
+    if (isset($dude['invetory']) && is_array($dude['invetory']) )  // ak máme a zároven ak to je inventory
+    foreach( $dude['invetory'] as $item ) {
+        echo $item . ', ';
+    }
+
+}
+
+
+
+///////////////***************************************************
+68 Explode implode map trim, skratený zápis pre PHP echo
+///////////////***************************************************
+
+echo implode ( ', ', $dude['inventory'] );
+
+
+
+echo '<pre>'
+print_r( $_SERVER['SCRIPT_FILENAME'] );
+echo '</pre>'
+
+echo '<pre>'
+print_r( array_filter(explode('/', $_SERVER['SCRIPT_FILENAME'])) );  //vznikne pole 
+echo '</pre>'
+
+
+$file = explode('/', $_SERVER['SCRIPT_FILENAME'])[5];
+
+echo '<pre>'
+print_r( $file );   //vypise index.php
+echo '</pre>'
+
+echo '<pre>'
+print_r( explode ('.', $file) );   //vypise pole  index a php 
+echo '</pre>'
+
+pathinfo()   // sa hodi viac preskumať v dokumentacii
+
+$names = "
+    Fin
+    Jake
+    ice king
+    pb
+    marcy
+";
+
+$names = explode (PHP_EOL, $names );
+
+echo '<pre>'
+print_r( $name[1] );   // budu tam ale medzery  white spaces 
+echo '</pre>'
+
+echo '<pre>'
+print_r( trim($name[1]) );   // da preč medzery , cele pole trimnuť nejde 
+echo '</pre>'
+
+echo '<pre>'
+print_r( array_map('trim', $name) );   // toto zavola trim na cele pole a vymaze tabulatory 
+echo '</pre>'
+     
+
+
+<?php foreach ( $adventure as $dude ) : ?>
+
+    <section>
+        <h3><? = $dude['who'] ?></h3>             // moze ale na starsich verziach pisať chyby 
+        <p><? = $dude['wat'] ?></p>
+    </section>
+
+
+<?php endforeach ?>
+
+
+
+
+
+
+//*****************************************
+ajax 36 37 39
+//*****************************************
+url je ta naša adresa definoveli ako href
+type je metoda typ requestu niekolko spsoobov get alebo post , post su ako formular zatajene udaje , get su take čo vidno v adrese napriklad 
+dataType: TYP DAt ktoresa nam maju vratiť napriklad html kod
+data v pripade že posielame nejake data ako formular v pozadi 
+done je motoda naviazana na ajax a spusti sa ak uspesne skonči ajax volanie 
+
+$.ajax({
+    url. href,
+    type: 'get',
+    dataType: 'html'
+}).done(function (data){
+    gallery.html( $(data).find('.gallery-set'))
+});
+
+var fb = [
+    'http:úúefjwefojwefioewf'
+    'http:úúefjwefojwefioewf'
+    'http:úúefjwefojwefioewf'
+];
+
+$.each(fb, function (index, value){
+
+    $.ajax({
+        urld: value,
+        type 'GET'
+        datatype: json    //vyzera ako js object 
+    }).done(fucntion(data){
+        
+        console.log();
+    });
+})
+
+//*****************************************
+39: jQuery UI Slider, Tooltip, pokročilé používanie UI komponentov a komunikácia medzi nimi
+//*****************************************
+hovorí ako si premennu z funkcie dá hore vyššie nad funkciu aby neexistovala iba v ramci tej funkcie 

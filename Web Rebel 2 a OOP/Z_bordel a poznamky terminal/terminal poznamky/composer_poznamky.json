@@ -1,0 +1,222 @@
+{
+    "require": {
+        "catfan/medoo": "^1.7",
+
+       "filp/whoops": "^2.12.0"
+    }
+
+    
+}
+
+
+instalovanie composeru 
+vytvorile v priesinku composer.json a dáme tam { }
+terminal cmd a c  a budeme nastavený v priečinku alebo cd a potiahneme tam priečinik 
+composer install 
+
+potom v php možem miesto require dať vendor/autoload.php    spravi samé packade a tak 
+ 
+toto pridíme do composeru 
+{
+  "autoload": {
+    "psr-4": {
+        "Peniss\\": "src"  // ešte potom zavolať composer dump-autoload
+    }
+  }
+}
+
+
+cmd shift a  a potom c a nastavi ma do priešniku rovno
+
+
+
+cd /Volumes && ls
+cd /Volumes/case-sensitive/todoapp/_inc
+
+
+
+matejbrodziansky@MacBook-Air-uzivatela-Matej ~ % cd /
+matejbrodziansky@MacBook-Air-uzivatela-Matej / % cd Volumes
+matejbrodziansky@MacBook-Air-uzivatela-Matej /Volumes % cd ls -la (list all hard drives)
+zsh: number expected
+matejbrodziansky@MacBook-Air-uzivatela-Matej /Volumes % cd ls
+cd: no such file or directory: ls
+matejbrodziansky@MacBook-Air-uzivatela-Matej /Volumes % cd /Volumes && ls 
+Macintosh HD	case-sensitive
+matejbrodziansky@MacBook-Air-uzivatela-Matej /Volumes % cd /Volumes/case-sensitive/todoapp/_inc
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % composer update
+
+                                                                          
+  [Seld\JsonLint\ParsingException]                                        
+  "./composer.json" does not contain valid JSON                           
+  Parse error on line 4:                                                  
+  ...on/php-error":    }}                                                 
+  --------------------^                                                   
+  Expected one of: 'STRING', 'NUMBER', 'NULL', 'TRUE', 'FALSE', '{', '['  
+                                                                          
+
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % pwd
+/Volumes/case-sensitive/todoapp/_inc
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % composer search medoo
+
+                                                                          
+  [Seld\JsonLint\ParsingException]                                        
+  "./composer.json" does not contain valid JSON                           
+  Parse error on line 4:                                                  
+  ...on/php-error":    }}                                                 
+  --------------------^                                                   
+  Expected one of: 'STRING', 'NUMBER', 'NULL', 'TRUE', 'FALSE', '{', '['  
+                                                                          
+
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % clear
+
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % composer search medoo
+
+                                                                          
+  [Seld\JsonLint\ParsingException]                                        
+  "./composer.json" does not contain valid JSON                           
+  Parse error on line 1:                                                  
+                                                                          
+  ^                                                                       
+  Expected one of: 'STRING', 'NUMBER', 'NULL', 'TRUE', 'FALSE', '{', '['  
+                                                                          
+
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc %   composer home catfan/medoo
+
+                                                                          
+  [Seld\JsonLint\ParsingException]                                        
+  "./composer.json" does not contain valid JSON                           
+  Parse error on line 1:                                                  
+                                                                          
+  ^                                                                       
+  Expected one of: 'STRING', 'NUMBER', 'NULL', 'TRUE', 'FALSE', '{', '['  
+                                                                          
+
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % composer require catfan/medoo
+
+                                                                          
+  [Seld\JsonLint\ParsingException]                                        
+  "./composer.json" does not contain valid JSON                           
+  Parse error on line 1:                                                  
+                                                                          
+  ^                                                                       
+  Expected one of: 'STRING', 'NUMBER', 'NULL', 'TRUE', 'FALSE', '{', '['  
+                                                                          
+
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % composer require catfan/medoo
+Using version ^1.7 for catfan/medoo
+./composer.json has been created
+Running composer update catfan/medoo
+Loading composer repositories with package information
+Updating dependencies
+Nothing to modify in lock file
+Installing dependencies from lock file (including require-dev)
+Nothing to install, update or remove
+Generating autoload files
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % composer update            
+Loading composer repositories with package information
+Updating dependencies
+Your requirements could not be resolved to an installable set of packages.
+
+  Problem 1
+    - Root composer.json requires jospeh-lenton/php-error, it could not be found in any version, there may be a typo in the package name.
+
+Potential causes:
+ - A typo in the package name
+ - The package is not available in a stable-enough version according to your minimum-stability setting
+   see <https://getcomposer.org/doc/04-schema.md#minimum-stability> for more details.
+ - It's a private package and you forgot to add a custom repository to find it
+
+Read <https://getcomposer.org/doc/articles/troubleshooting.md> for further common problems.
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % composer update
+Loading composer repositories with package information
+Updating dependencies
+Lock file operations: 2 installs, 0 updates, 0 removals
+  - Locking filp/whoops (2.12.0)
+  - Locking psr/log (1.1.3)
+Writing lock file
+Installing dependencies from lock file (including require-dev)
+Package operations: 2 installs, 0 updates, 0 removals
+  - Downloading filp/whoops (2.12.0)
+  - Installing psr/log (1.1.3): Extracting archive
+  - Installing filp/whoops (2.12.0): Extracting archive
+2 package suggestions were added by new dependencies, use `composer suggest` to see details.
+Generating autoload files
+1 package you are using is looking for funding.
+Use the `composer fund` command to find out more!
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % 
+
+
+
+
+
+//----------------------------------------------instal jquery----------------------------------
+//----------------------------------------------instal jquery----------------------------------
+//----------------------------------------------instal jquery----------------------------------
+//----------------------------------------------instal jquery----------------------------------
+//----------------------------------------------instal jquery----------------------------------
+//----------------------------------------------instal jquery----------------------------------
+//----------------------------------------------instal jquery----------------------------------
+Last login: Fri Apr  9 09:55:15 on ttys000
+matejbrodziansky@MacBook-Air-uzivatela-Matej ~ % cd /Volumes/case-sensitive/learn2code/38/_inc
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % npm install -g bower
+
+changed 1 package, and audited 2 packages in 1s
+
+found 0 vulnerabilities
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % bower
+
+Usage:
+
+    bower <command> [<args>] [<options>]
+Commands:
+
+    cache                   Manage bower cache
+    help                    Display help information about Bower
+    home                    Opens a package homepage into your favorite browser
+    info                    Info of a particular package
+    init                    Interactively create a bower.json file
+    install                 Install a package locally
+    link                    Symlink a package folder
+    list                    List local packages - and possible updates
+    login                   Authenticate with GitHub and store credentials
+    lookup                  Look up a single package URL by name
+    prune                   Removes local extraneous packages
+    register                Register a package
+    search                  Search for packages by name
+    update                  Update a local package
+    uninstall               Remove a local package
+    unregister              Remove a package from the registry
+    version                 Bump a package version
+Options:
+
+    -f, --force             Makes various commands more forceful
+    -j, --json              Output consumable JSON
+    -l, --loglevel          What level of logs to report
+    -o, --offline           Do not hit the network
+    -q, --quiet             Only output important information
+    -s, --silent            Do not output anything, besides errors
+    -V, --verbose           Makes output more verbose
+    --allow-root            Allows running commands as root
+    -v, --version           Output Bower version
+    --no-color              Disable colors
+    --config.interactive=false Disable prompts
+See 'bower help <command>' for more information on a specific command.
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % which bower
+/opt/homebrew/bin/bower
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % bower install jquery
+bower not-cached    https://github.com/jquery/jquery-dist.git#*
+bower resolve       https://github.com/jquery/jquery-dist.git#*
+bower download      https://github.com/jquery/jquery-dist/archive/3.6.0.tar.gz
+bower progress      jquery#* received 0.0MB of 0.4MB downloaded, 3%
+bower progress      jquery#* received 0.0MB of 0.4MB downloaded, 5%
+bower progress      jquery#* received 0.0MB of 0.4MB downloaded, 6%
+bower progress      jquery#* received 0.0MB of 0.4MB downloaded, 7%
+bower retry         Download of https://github.com/jquery/jquery-dist/archive/3.6.0.tar.gz failed with ESOCKETTIMEDOUT, retrying in 1.1s
+bower progress      jquery#* received 0.4MB of 0.4MB downloaded, 99%
+bower extract       jquery#* archive.tar.gz
+bower resolved      https://github.com/jquery/jquery-dist.git#3.6.0
+bower install       jquery#3.6.0
+
+jquery#3.6.0 bower_components/jquery
+matejbrodziansky@MacBook-Air-uzivatela-Matej _inc % 

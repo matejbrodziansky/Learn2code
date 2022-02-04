@@ -1,0 +1,41 @@
+.pullquote-left {
+   float: left;
+
+}
+
+.pullquote-right {
+    float: right;
+}
+
+/*
+body{
+    background-color: grey;
+    color: rgb(9, 10, 9);
+}
+*/
+
+
+
+
+
+.controls a {    /*  bolo controls a    ale nejde mito */
+
+    font-size: 130px;
+    margin-left: 80px;
+    margin-bottom: 100px;
+}
+
+.delete-link {
+    position: relative  /* nejde */ 
+    top 2px;
+
+}
+
+
+.list-group-item .controls {
+    display: none;   /*nejde */
+}
+
+.list-group-item:hover .controls {
+    display: block;              /*nejde */
+}

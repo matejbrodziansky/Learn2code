@@ -1,0 +1,18 @@
+{
+  
+    "autoload": {
+      "psr-4": {
+          "Peniss\\": "src/"
+      }
+    },
+    "require": {
+        "catfan/medoo": "^1.7",
+        "filp/whoops": "^2.12"
+       
+    }
+}
+
+
+
+
+

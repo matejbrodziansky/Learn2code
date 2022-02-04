@@ -1,0 +1,1055 @@
+
+-=- 32 Blade 2 2002 by Guillermo del Toro  forelse unless include partials-=-
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+php artisan make:migration create_tags_table --table=tags
+php artisan make:migration create_tags_table --create=tags
+php artisan make:migration create_tags_table    // novy laravel ide aj toto a doplni id timestamp
+
+php artisan migrate
+php artisan migrate:rollback
+
+php artisan make:migration add_created_at_to_tags_table --table=tags
+         $table->timestamp('created_at');
+                 Schema::dropIfExists('tags');
+
+php artisan:reset  // vrati všetko 
+
+php artisan make:migration create_posts_table
+
+pribudene
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 2 ==
+
+composer require --dev laracasts/generators
+pribudne 
+ make:migration:pivot   Create a new migration pivot class
+  make:migration:schema  Create a new migration class and apply schema at the sa
+
+php artisan make:migration:schema create_posts_table --schema="user_id:integer:unsigned, tite:string(200), text:text, slug:string(200)"
+php artisan make:model Post
+
+php artisan make:migration:schema add_published_at_to_posts_table --schema="publish_at:timestamp"
+
+php artisan make:migration:schema add_published_at_to_posts_table --schema="publish_at:timestamp:nullable:unique"
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 3 ==
+PIVOT
+
+php artisan make:migration:pivot posts tags
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 4 ==
+
+niekedy nejde rollback alebo tak 
+možeme použiť 
+composer dump-autoload
+php artisan migrate:reset
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 5 ==
+
+php artisan make:migration:schema create_tags_table --schema="tag:string(60)"
+php artisan make:migration:schema create_posts_table --schema="user_id:integer:unsigned, title:string(200), text:text, slug:string(200)"
+php artisan make:migration:pivot posts tags
+timstampy preč z tagov
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 6 ==
+
+composer require laravel/ui
+php artisan ui vue --auth
+npm install
+npm run dev
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 7 ==
+
+controller auth
+protected $redirectPath = '/';
+protected $logintPath = '/log-me-in';
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 8 ==
+
+heslo sa tu blokuje cez bcript 
+thinker tam možme zmeniť heslo keby zabudneme 
+
+v thinker napíšem bcript('pass')
+a to si tam možeme hodiť potom do DB
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 9 ==
+authenticatesUsers.php ma všetky tie metody login atd
+
+možem si vytiahnuť metodu celu do authcontrolleru a dať na spodok
+a prepíše sa ta predošla a možem pridať flash message a tak 
+
+about me moja stranka
+v logincontrollery clik na  cmd auth a ukaže mi kde to je 
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 10 ==
+
+middleweare kontroluje crossside a tak 
+kontroluje či je ok a zobrazi sa adresa na ktoru bol poslany request 
+
+Route::get('/', ['middleweare' => 'auth', function() {
+  return view('home');
+}]);
+
+middleweare najdem v kernel.oho
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 11 ==
+
+RedirectIfAuthenticated.php
+tu sa dá zmeniť redirecť 
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 12 ==
+nazov modela je jednotne číslo nazvu tabulky 
+
+dd( \App\User::all() );
+dd( \App\User::all()->toArray() );
+dd( \App\User::first()->toArray() );
+dd( \App\User::find(2)->toArray() );  // najde podla id 
+
+$user = \App\User::find(2);
+$user->email = 'hello@there.hu';   // nastavime mu email
+$user->save();   // uložiť do databazy
+
+// novy user
+$user = new \App\User;
+$user->name = 'I have a name';
+$user->email = 'hello@there.hu';
+$user->password = bcript('password01');
+
+ $user->save();
+
+ toto je ORM  Object Relational Mapping
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 12 ==
+eloquent
+
+$users = App\User::all();
+$users = App\User::where('name', 'yablko')
+    ->get();
+
+$users = App\User::where('id', '>', 2)
+    ->get();
+
+$users = App\User::where('id', '>=', 1)   // vacsie alebo rovne
+  ->orderBy('name', 'asc')
+    ->get();
+
+$users = App\User::where('id', '>=', 1)  //vyberie dvoch
+  ->orderBy('name', 'asc')
+  ->take(2)
+    ->get();
+
+$users = App\User::where('email', 'like', 'i@%')   //začina na 
+  ->orderBy('name', 'asc')
+  ->take(2)
+    ->get();
+
+$users = App\User::where('email', 'like', 'i@%')   //začina na 
+  ->orWhere('email', 'like' 'brm%')
+  ->orderBy('name', 'asc')
+  ->take(2)
+    ->get();
+
+
+$users = App\User::whereName('yablko')   //whereName on vie že najde yablko
+    ->get();
+
+$users = App\User::whereName('yablko')   //whereName on vie že najde yablko
+    ->first();   // lepšie ako get 
+
+$users = App\User::find(4)  
+    ->first();   // lepšie ako get 
+
+    $user->delete();
+
+$user = \App\User::create([
+  'name' = 'I have a name',
+  'email' = 'I@have.name',
+  'password' = bcript('nbs12'),
+]);    
+
+print_r($users->toArray())
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 13 ==
+
+php artisan make:controller PostrController
+php artisan make:model Post
+
+//ROUTE
+Route::group(['middleweare' =>'auth'], function() {
+    Route::get('/', 'PostrController@index');
+    Route::resource('post', 'PostrController');
+
+})
+
+// POST CONTOLLER
+use App\Post;
+public function index()
+{
+  $post = new Post;
+
+  $post->user_id = 1;
+  $post->title = 'This is a titel';
+  $post->text = 'bla bla rit prd grt tralala'
+  $post->slug = str_slug($post->title);  
+
+  $post->save();
+
+  dd($úpst->toArray() );
+
+}
+
+// OR
+// POST CONTOLLER
+use App\Post;
+public function index()
+{
+  $post =  Post::create([
+    'user_id' => 3,
+    'title' => 'Ego prečo lebo ty geno ',
+    'text' => 'Who lets the dogs out haw haw haw',
+    'slug' => 'ego-preco-lebo-ty-geno',
+  ]);
+
+
+  dd($úpst->toArray() );
+
+dostaneme mass assignment
+
+
+//model
+v modely musime vymenovať protected $fillable = ['name','email','password'] 
+
+tak isto možeme zakazať zobrazovať vytiahnute udaje
+ $hidden = ['password','remember_token'] 
+
+
+
+}
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 15 ==
+
+62 video
+
+public function index()
+{
+  // $posts = Post:all();
+  // $posts = Post:orderBy('created_at', 'desc')->get();
+  $posts = Post:latest('created_at')->get();  // lepší zapis  a opak je oldest
+
+
+  return view('post.index')
+    ->with('posts', $posts);
+}
+
+[!] yablko ma extension v prehliadači JSON formatter preto mu to vypisuje pekne jason 
+
+
+@forelse($posts as $post)
+
+  article#post-.post>header.post-header+.post-content+footer.post-footer
+
+  h2>a[href]+time[datetime]>small
+
+  <article id="post-{{ $post-id}}" class="post">
+    <header class="post-header">
+      <h2>
+        <a href="{{ route('post.show', $post->id) }}">
+          {{$post->title}}
+        </a>
+        <time datetime="">
+        <small>{{$post->created_at}}</small>
+        </time>
+      </h2>
+    </header>
+    <div class="post-content">
+      <p>
+        {{ str_limit($post->text,300) }}
+      </p>
+    </div>
+    <footer class="post-footer">
+        <a href="{{ route('post.show', $post->id) }}" class="read-more"> read more</a>
+    </footer>
+</article>
+
+@empty
+
+<p>  we got nothing man </p>
+
+
+
+//model
+public function getCreatedAtAttribute($value)
+{
+  return date('j M Y, G:i', strtotime($post->created_at));
+}
+
+public function setFirstNameAttribute($value)
+{
+  $this->attributes['first_name'] = ucfirst($value);
+}
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 16 ==
+63 video
+
+helper sa može dať do http 
+v composer json ho treba autoload 
+
+"files": [
+  "app/Http/helpers.php"
+]
+
+potom composer dumpautoload
+
+tu ma funkcie čo spravia klikatelne linky a tak 
+
+4:00 is admin 
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 16 ==
+64
+
+public function show($id)
+{
+  [x] $post = Post::find($id)
+  //lepší zapis
+  [√] $post = Post::findOrFail($id)
+  
+  [x] if( ! $post){
+    [x] abort(404);
+  }
+  // return $post ;
+  return view('post.show')
+  ->with('post'. $post);
+}
+
+app.php 
+debigovanie je na true
+v env je na true 
+nebudu tam ine chyby ukazane 
+
+view error možeme si svoju 404 spraviť 
+
+
+section 
+artisle 
+h1
+p
+
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 17 ==
+65
+
+//modle tieto hodnuty sa vypíšu len ked vypýtame len
+// jedno  nie naraz array
+
+//alebo  takto sa nalepia na objekt 
+protected $appends = ['teaser', 'datetime']
+
+public function getTeaserAttribute()
+{
+  return word_limiter( $this->text, 60);
+}
+
+public function getRitchTextAttribute()
+{
+  return add_paragrap hs(filter_url(e( $this->text, 60) ));
+}
+
+public function getDatetimeAttribute()
+{
+  return date('Y-m-d', strtotime($this->created_at))
+}
+
+//controller
+
+public function show($id)
+{
+  $post = Post::find($id)
+
+  return $post->teaser;
+  return $post->ritch_text;
+
+  return view('post.show')
+  ->with('post'. $post);
+}
+
+//index view
+{{$post->teaser}}
+{{$post->datetime}}
+
+//link na samu seba 
+URL::current()
+
+//ritch text už ma p a br tak nemožeme esxape 
+{!! $post-ricth !!}
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 18 ==
+66
+//pivot table
+// post model 
+
+public function user()
+{
+  return $this->belogsTo('App\User')
+}
+
+// controller post 
+public function show($id)
+{
+  $post = Post::find($id)
+
+    return->$post->user;   // udaje o userovi tohoto postu 
+
+  return view('post.show')
+  ->with('post'. $post);
+}
+
+//user model 
+public function posts()
+{
+  return $this->hasMany('App\Posts');
+}
+
+// controller post 
+public function show($id)
+{
+  $post = Post::find($id)
+
+  $user = User::find(1);
+  return $user->posts;
+
+    // return->$post->user;   // udaje o userovi tohoto postu 
+
+  return view('post.show')
+  ->with('post'. $post);
+}
+
+//show view
+{{ $post->user->email}}   //vyprdne jeho email 
+
+
+//User controller
+
+public function show($id)
+{
+  $user = \App\User::findOrFail($id);
+
+  return view('post.index')
+  ->witdh('title', $user->email)
+  ->with('posts', $user->posts);
+}
+
+//index blade
+{{ $title or "this is a blog "}}
+
+//------------------------------------------------------
+
+//******************************************************
+
+//------------------------------------------------------
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+ak nepoužívame timestampy treba ich false
+
+tag model 
+
+public $timestamps = false ;
+
+protected $fillable = ['tag'];
+
+
+php artisan thinker 
+
+\App\Tag::create(['tag' => 'trippin'])
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+ak nepoužívame timestampy treba ich false
+
+tag model 
+
+public $timestamps = false ;
+
+protected $fillable = ['tag'];
+
+
+php artisan thinker 
+
+\App\Tag::create(['tag' => 'trippin'])
+
+
+//tag 
+
+public function posts()
+{
+  return $this->belongsToMany('App\Post');
+}
+
+//post 
+
+public function tags()
+{
+  return $this->belogsToMany('App\tag')
+}
+
+
+//post controller
+
+show fukncia
+
+return $post->tags->lists('tag')
+
+//thinker
+$tag = App\Tag::find(5);
+$post = App\Post::find(2)
+
+$post->tags()->save($tag);
+$post->tags()->detach(5);  // da ho preč 
+
+$post->tags()->sync([3,5,6]);  
+
+
+@if($post->tags)
+  <p class="tags">
+    @foreach($post->tags as $tag)
+        <a href="{{ url('tag', $tag->id )}}" class="btn btn-warning btn-xs">
+          <small>{{$tag->tag}}</small>
+        </a>
+    @endforeach
+
+@endif
+
+
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 20 ==
+== 68 ==
+
+terminal skratky
+
+alias art="php artisan"
+
+zshrc 
+na mac bash_profile   adresar svojho učtu 
+
+# TERMINAL
+alias ll="ls -FlAGh"
+alias c="clear"
+alias h="cd ~/"
+  
+  
+# APPS
+alias subl="open -a 'Sublime Text 3'"
+alias storm="open -a 'PhpStorm'"
+alias sublime="subl"
+  
+  
+# ARTISAN
+alias art="php artisan"
+alias artisan="php artisan"
+  
+alias migrate="php artisan migrate"
+alias mig:r="php artisan migrate:reset"
+alias mig:roll="php artisan migrate:rollback"
+  
+alias serve="php artisan serve"
+alias rl="php artisan route:list"
+  
+alias g:c="php artisan make:controller"
+alias g:m="php artisan make:migration"
+alias g:mp="php artisan make:migration:pivot"
+alias g:ms="php artisan make:migration:schema"
+alias g:mod="php artisan make:model"
+alias g:prov="php artisan make:provider"
+  
+  
+# COMPOSER
+alias cu="composer update"
+alias ci="composer install"
+alias cdump="composer dump-autoload -o"
+
+live templates visual studio code naštudovať potom 
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 20 ==
+== 70 ==
+
+funkcia store 
+
+dd($request);
+dd($request->get('tags'));
+
+$validator = \Validator::make($request->all(), [
+  'title' => 'required|max:200',
+  'text' => 'required',
+  'tags' => 'array'
+]);
+
+if($validator->fails() ){
+  return back()
+    ->withErrors($validator)
+    ->withInput();
+}
+
+  $post = Post::create( $request->all() );
+
+  flash()–>succes('yay!');
+
+  return redirec()->route('post.show', $post->id);
+
+// die('save it bro');
+
+// nezabudnuť vo form na user ide 
+{!! Form::hidden('user_id', \Auth::id() ) !!}
+// ale možu v dev tools prehodiť value .. takže zle riešenie 
+
+$post = \Auth::user()->posts()->create($request->all() );
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 21 ==
+== 71 ==
+
+//v adresary request pribudne 
+
+php artisan make:request SavePostRequest
+
+public function authorite()
+{
+  // return $post->user_id == Auth::id();
+  return \Auth::check();
+}
+
+//ak prejde authorize nad tymto tak prejde sem rules
+public function rules()
+{
+  return [
+  'title' => 'required|max:200',
+  'text' => 'required',
+  'tags' => 'array'
+];
+  
+}
+
+//postocontroller
+//store
+
+// public function stole(Request $request)
+// public function stole(Request\SavePostRequest $request)
+public function stole(SavePostRequest $request) {
+
+  // create new post for this uses
+  $post = \Auth::user()->posts()–>create( $request->all() );
+
+  //attach tags to post
+  $post->tags()->sync( $request->get('tags') ?: []);
+
+  // redirect to new post
+  flash()->succes('yay!');
+  return redirec()->route('post.show', $post->id);
+
+}
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 74 ==
+
+// nemusim už inde tagy vytahovať ale zapojí další subor 
+
+ appserviceproviders.php
+
+ public function boot()
+ {
+   view()->composer('post.form', function($view)
+   {
+     $view->with('tags'. \App\Tag::all() );
+   });
+ }
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 75 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+//------------------------------------------------------
+
+//******************************************************
+
+//******************************************************
+== 19 ==
+== 67 ==
+
+
+//------------------------------------------------------
+
+//******************************************************
+

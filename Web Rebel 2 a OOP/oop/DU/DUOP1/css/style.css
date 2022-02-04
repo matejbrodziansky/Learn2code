@@ -1,0 +1,49 @@
+body {
+    margin:  0 auto;
+    background: cornflowerblue;
+}
+
+
+
+
+header {    
+    text-align: center;
+    background-color: cadetblue;
+    margin: 0 auto;
+    padding: 20px 0; 
+}
+
+
+.container {
+    width:  1200px;
+    margin: 0 auto;
+}
+
+section {
+    float: left;
+    margin-bottom: 30px;
+    
+}
+section:nth-child(2) {
+    margin-right: 5%;
+}
+
+.destroy-everything {
+    width: 33%;
+    margin: 30px auto ;
+    text-align: center;
+    clear: both;
+}
+
+.destroy-everything a {
+    background: crimson;
+    padding: 20px 0 ;
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    opacity: .4;
+    
+}

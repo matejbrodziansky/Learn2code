@@ -1,0 +1,26 @@
+1 dve classy 
+container -  nie je na celu stranu 
+container fluid - je na celu širku stranku 
+mame aj borderi
+clearfix
+farby textu 
+bacgroundy
+floaty 
+postitiony
+v dokumentaci koponent carousel slidy su a colapse je scroll 
+
+
+[√] d-inline-block align-top   vycentrovalo na stred obrazok voči textu 
+ked dame Ul ml-auto tak z prava to drbne do lava 
+
+btn-block a zabral ceu sirchu rodiča 
+
+
+.jumbotron{
+    background-color: transparent ;
+} a mohol byť image cez cele
+
+justify-content-center ak ma dakde miesto tak ho vystredí 
+lead zvacsí text trochu 
+
+justify-content-around toto vystreí ak nechydzaju stlpce napr 5 odstavov a 12 col 

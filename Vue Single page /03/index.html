@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <transition-group name="dude" tag="ul">
+
+            <li class="dude" v-for="(dude, index) in characters" :key="index">
+                <a class="ctrl" @click.prevent="remove(dude)">x</a>
+                <article :class="{ faded: dude.cool < 10, gold: dude.cool > 50}">
+                    {{dude.who}}
+                    <span>
+                        {{dude.wat}}
+                    </span>
+                </article>
+
+                <input class="ctrl" type="number" v-model.number="dude.cool">
+            </li>
+        </transition-group>
+
+        <form class="add-new" @keydown.enter="add">
+            <input type="text" v-model="newWho" ref="new" autofocus>
+            <input type="text" v-model="newWat">
+        </form>
+
+        <p style="color: aliceblue;" class="preview">
+            {{ newWho}} <br>
+            <small>{{newWat}}</small>
+        </p>
+    </div>
+
+
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                newWho: '',
+                newWat: '',
+                characters: [],
+            },
+            methods: {
+                add() {
+                    if (!this.newWho || !this.newWat) return
+                    this.characters.push({
+                        who: this.newWho,
+                        wat: this.newWat,
+                        cool: 15,
+                    })
+
+                    this.newWho = ''
+                    this.newWat = ''
+
+                    this.$refs.new.focus()
+
+                },
+                remove(dude) {
+                    this.characters = this.characters.filter(item => item !== dude)
+                }
+            },
+            created(){
+                fetch('adventure.json')
+                    .then(res => res.json())
+                    .then(json => this.characters = json)
+            }
+        })
+    </script>
+
+</body>
+
+</html>

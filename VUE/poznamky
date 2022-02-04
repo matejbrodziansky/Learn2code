@@ -1,0 +1,53 @@
+https://cli.vuejs.org/guide/installation.html
+cd kde treba
+npm install -g @vue/   cli
+vue --version
+
+vue create tunes-vue-ts  tunes nazov 
+manualny select babel typescrypt routes css
+component syntax NO
+use babel yes 
+use history yes 
+dart size 
+es prettier 
+link 
+i dedicade
+no save future 
+
+ $ cd tunes-vue-ts
+ $ npm run serve
+ http://localhost:8080/
+
+ keyboard.cool
+
+ routerlink component nesposobý refresh  miesto a elementu 
+
+
+ app.vue rodič 
+ v home.vue vidime aj ako natiahnuť komponent 
+
+ app>home>components>
+ 
+ indext v router sa bez refreshu veci 
+
+ // -------------28 --------------------
+     <div class="navigation">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/tunes">Tunes</router-link> |
+      <router-link to="/about">About</router-link>
+    </div> 
+    
+    do components  -> vbase pripravý strukturutu 
+
+ked je : pred napríklad :brand="30"   tak je to JS možeme matematiku dať napriklad "1+2"
+
+      <the-navigation :brand="myCurse" />
+
+export default {
+  data() {
+    return {
+      myCurse: 'ouch'
+    }
+  },
+  bez dvojbodky myCurse  s : ouchh
+          this is a  <strong>{{ brand }}</strong> navigation

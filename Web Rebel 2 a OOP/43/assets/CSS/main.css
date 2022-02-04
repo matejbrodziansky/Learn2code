@@ -1,0 +1,16 @@
+.pullquote-left {
+   float: left;
+
+}
+
+.pullquote-right {
+    float: right;
+}
+
+body{
+    background-color: grey;
+    color: rgb(9, 10, 9);
+}
+
+
+

@@ -1,0 +1,39 @@
+.pullquote-left {
+   float: left;
+
+}
+
+.pullquote-right {
+    float: right;
+}
+
+
+.controls a {    /*  bolo controls a    ale nejde mito */
+
+    font-size: 13px;
+    margin-left: 8px;
+    margin-bottom: 10px;
+}
+
+.delete-link {
+    position: relative  /* nejde */ 
+    top 2px;
+
+}
+
+/*
+.list-group-item .controls {
+    display: none;   
+}
+
+.list-group-item:hover .controls {
+    display: block;              
+}
+
+*/
+
+.list-group-item {
+    color: rgb(192, 37, 37);
+    background-color: #fff;
+}
+

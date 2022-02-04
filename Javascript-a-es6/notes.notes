@@ -1,0 +1,53 @@
+-- 13 Kolekcia na pole NodeList vs Array poľná frustrácia -- 
+// console.log(typeof score); //typ premennej
+
+var dudes = document.querySelectorAll('.choice img');  //node list nie je pole nepojde na to foreach
+dudes = Array.prototype.slice.call(dudes);        // aj pre staršie prehliadače vytvorí pole  // Array.from(dudes)  -> po  novom 
+
+-- 14 DOM Polyfill Shim si sochár vyhadzuj kód veselo -- 
+http://youmightnotneedjquery.com/
+next element sibling polify // hodí kus kodu pre staršie prehliadače, možem ho nakopírovať na vrch kódu a pojdem naprd nextsiblings. Často ho najdeme na MDM stranke
+
+-- 15 _lodash externé knižnice otherDude -- 
+https://lodash.com/
+
+
+-- 16 localStorage  ako cookies len sexy --
+//----------------
+
+
+-- 17 JSON formát náš kamarát v localStorage --
+var string = JSON.stringify(data);
+var data = JSON.parse(string);
+
+
+
+-- 18 localStorage limitácie a kde sa používa naozaj -- 
+// ------------------------
+
+-- 19 JSON tučné triky v Devtools konzole --
+
+
+-- 52 NPM init package json súbor sladké dependencies --
+-- 54 NPM devdepencensies production --
+npm init -y  //pre  namiesto npm init .. pre vlasne použitie
+
+npm install babel-cli
+
+npm install lodas
+npm install lodas --save //može nemusí , pridá sa do dependensies
+npm install lodas --save-dev 
+npm install --only=pro
+
+
+-- 55 NPM devdepencensies production --
+node_modules/.bin/babel src/app.js --out-file js/app.js
+
+cerate .babelrc
+{
+    "presets": [
+        "env"
+    ]
+}
+
+npm install babel-preset-env --save-dev

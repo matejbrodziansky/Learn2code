@@ -1,0 +1,1573 @@
+1 cd folder
+
+//************************************************************************
+
+2 composer create-project --prefer-dist laravel/laravel arcade_watch
+
+//************************************************************************
+
+3 cd arcade_watch
+
+//************************************************************************
+
+4 php artisan serve    spusti server cez tertminal 
+
+//************************************************************************
+
+5 php artisan make:controller PagesController
+
+//************************************************************************
+
+6 RouteSerciceProvider.php treba pridať toto protected $namespace = 'App\Http\Controllers'; inak nepojdu routi 
+  app/providers/
+
+  //************************************************************************
+
+7 shift cmd + P   route list  vypíše mi routy 
+
+//************************************************************************
+
+8 vytvorime tabulku v DB 
+
+//************************************************************************
+
+9 v subore .env sa pripojíme na DB
+
+//************************************************************************
+
+
+10 composer require laravel/ui php artisan ui vue --auth php artisan migrate  ( to čo je  kurze nešlo )
+https://dev.to/shanisingh03/laravel-8-authentication-7fb
+https://stackoverflow.com/questions/58111841/auth-pages-not-getting-css-in-laravel
+
+//************************************************************************
+
+11 php artisan ui vue --auth
+
+//************************************************************************
+
+ 12 npm install
+
+ //************************************************************************
+
+13 npm run dev   a nezabudnuť na node moduuls
+
+//************************************************************************
+
+14 spravili sme view master.blade viw 
+<div id="app">
+<main>
+    @yield('content')  // tu príde content yield 
+</main>
+</div>
+
+//************************************************************************
+
+15 view/welcome.blate
+@extends('layouts.master') akykolvek kod v tomto subore sa ma vloižiť do suboru master z adresara layouts
+
+
+//************************************************************************
+
+16
+/ packade.json  tam si možem dať react vue a tak 
+
+//************************************************************************
+
+
+17 potom npm install a on si to postahuje 
+
+//************************************************************************
+
+18 npm run watch    // prebehne vestky adresare sas js 
+
+//************************************************************************
+
+19 /resources/sass píšeme css do app.scss
+
+//************************************************************************
+
+20  .disableSuccessNotifications();    // v webpack.mix.js
+
+//************************************************************************
+
+21 npm run watch
+
+//************************************************************************
+
+22 master.blade.pgp  sme dali <example-component></example-component>  z /resource/components
+
+//************************************************************************
+
+23 10:30 nainstaloval bulma css   neslo   video V08 nice vue 
+boostrap som nechal   // pridaný progress bar 
+
+Copy
+<div class="progress">
+  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+//************************************************************************
+
+24 npm run watch
+
+//************************************************************************
+
+25  do examplecomponent.vue 
+
+
+//************************************************************************
+
+//V09
+
+26  php artisan make:migration create_post_table
+
+//************************************************************************
+
+27
+
+public function up()
+{
+  $table->bigIncrements('id');
+  $table->integer('post_id')->unsigned(); 
+  $table->integer('user_id')->unsigned(); 
+  $table->text('text');
+  $table->timestamps();
+  $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+  $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+});
+
+26  php artisan make:migration create_comment_table
+Schema::create('posts', function (Blueprint $table) {
+  $table->bigIncrements('id');
+  $table->integer('user_id')->unsigned(); 
+  $table->string('title', 200);
+  $table->text('text');
+  $table->string('slug', 200);   
+  $table->timestamps();
+  $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+});
+
+https://laravel.com/docs/8.x/migrations
+
+Since this syntax is rather verbose, Laravel provides additional, terser methods that use conventions to provide a better developer experience. The example above can be rewritten like so:
+
+Schema::table('posts', function (Blueprint $table) {
+    $table->foreignId('user_id')->constrained();
+});
+The foreignId method is an alias for unsignedBigInteger while the constrained method will use conventions to determine the table and column name being referenced. If your table name does not match Laravel's conventions, you may specify the table name by passing it as an argument to the constrained method:
+
+Schema::table('posts', function (Blueprint $table) {
+    $table->foreignId('user_id')->constrained('users');
+});
+takže takto 
+
+Schema::create('posts', function (Blueprint $table) {
+  $table->bigIncrements('id');
+  $table->string('title', 200);
+  $table->text('text');
+  $table->string('slug', 200);
+  $table->timestamps();
+  $table->foreignId('user_id')->constrained('users');
+});
+
+$table->bigIncrements('id');
+$table->text('text');
+$table->timestamps();
+$table->foreignId('posts_id')->constrained('posts');
+$table->foreignId('user_id')->constrained('users');
+});
+
+//************************************************************************
+
+27 return \DB::table('posts')->get();
+
+//************************************************************************
+
+
+//************************************************************************
+28 php artisan make:model Post    // dvolezita vec nazvať ako jednotne čislo z db 
+vznikne v app/models/posts.php
+možeme tu skrývať stlpce napríklad password aby ho nevytahovalo a tak  video V10
+//************************************************************************
+
+
+//************************************************************************
+29  use App\Post;   // toto napíšeme v controllery a vyvolá model post
+//************************************************************************
+
+
+//************************************************************************
+30 return Post::all();    miesto bodu 27
+return Post::first(); vrati prvy 
+return Post::all()->first(); iny sposob vyrečnejši
+return Post::all()->last(); iny sposob vyrečnejši
+
+//************************************************************************
+
+
+//************************************************************************
+31        return Post::all()->pluck('title');  vrati iba pole nadpisov 
+//************************************************************************
+
+
+//************************************************************************
+32         return view('welcome', [
+  'title' => '(ಠ_ಠ)',
+  'posts' => Post::all()->pluck('title')
+]);
+//************************************************************************
+
+
+//************************************************************************
+33     @foreach ($posts as $post)
+
+{{-- @dump($post) --}}
+    <li>
+      <h2>{{ $post->title }}</h2>
+      <p>{{ $post->test}}</p>
+    </li>
+@endforeach
+//************************************************************************
+
+
+//************************************************************************
+34 php namespaces  ctrl option i   pridá class ked neni use import  class
+//************************************************************************
+
+
+//************************************************************************
+35 posts model     return $this->belongsTo('App\User'); kazdy jeden post patrí 
+nejakemu userovi.  V app mam model user, tým pádom vytorené prepojenie
+
+    // public function user()
+// {
+//     return $this->belongsTo('App\User');
+// }
+
+
+// novy zapis 
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
+//************************************************************************
+
+
+//************************************************************************
+36    {{$post->user->name}}
+
+//************************************************************************
+
+//************************************************************************
+37 v pages controller return User::first(); a import clas ctrl option i alebo right click 
+//************************************************************************
+
+//************************************************************************
+38
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+ v modeli post.php
+//************************************************************************
+
+//************************************************************************
+39
+
+public function Posts()
+{
+    // return $this->belongsTo(Post::class);
+    return $this->hasMany(Post::class);
+}
+v modeli users.php
+//************************************************************************
+
+//************************************************************************
+40
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Http\Request;
+// use Illuminate\Foundation\Auth\User;
+takto išlo v pages controlleri 
+//************************************************************************
+
+//************************************************************************
+41
+pravidlo 
+tabulku si nazvi množným čišlom, model tak isto ale jednotným čislom 
+cudzi kluč v tabulke jednotne čislo _id   user_id
+//************************************************************************
+
+//************************************************************************
+42 php artisan make:model Comment  
+
+https://www.learn2code.sk/aplikacia/skupiny#/webrebel-3-oop-a-laravel/chapters/v11-vztahy-medzi-modelmi-auto-doplnanie-use cele video 
+//************************************************************************
+
+//************************************************************************
+43 seed a factories 
+
+database/seeders
+database/ factories 
+\App\Models\User::factory(10)->create();
+
+//************************************************************************
+
+//************************************************************************
+44 php artisan db:seed   zahoadne potom išlo 
+//************************************************************************
+
+//************************************************************************
+45 php artisan make:seeder UsertableSeeder
+//************************************************************************
+
+//************************************************************************
+46 v databaseseeder $this->call(UsertableSeeder::class); 
+a v user App\Models\User::factory(10)->create();
+//************************************************************************
+
+//************************************************************************
+47 php artisan make:factory PostFactory --model=Post
+//************************************************************************
+
+//************************************************************************
+48 $this->call(PosttableSeeder::class); v databaseseeder
+//************************************************************************
+
+//************************************************************************
+49
+\App\Models\User::factory(10)->create()->each(function ($user){
+  for($i = 0; $i < 5; $i++) {
+      $user->posts()->save(Post::factory()->make());
+      $user->comments()->save(Comment::factory()->make());
+  }
+});
+
+yablko to mal inak toto je novši zapis 
+
+// factory(App\User::class, 5)->create()->each(function ($user){
+        //     for($i = 0; $i < 5; $i++) {
+        //         $user->posts()->save($factory(App\Post::class)->make());
+        //         $user->comment()->save($factory(App\Comment::class)->make());
+        //     }
+        // });
+
+//************************************************************************
+
+//************************************************************************
+50 php artisan migrate:refres --seed
+//************************************************************************
+
+//************************************************************************
+51  return Post::latest('id')->get();  
+vrati od posledneho pridaného opak je oldest   akurat nevidno lebo 
+generované boli všetky naraz 
+//************************************************************************
+
+//************************************************************************
+52 pages controller 'posts' => Post::latest()->get(), od posledneho pridaného 
+//************************************************************************
+
+//************************************************************************
+53             {!! nl2br($post->text) !!}
+
+vypne escapovanie a !! musi byť lebo by do textu jeblo < /br>
+//************************************************************************
+
+//************************************************************************
+54  @<strong> {{$post->user->name}}</strong>   @musi byť pred strong 
+inak to nezoberie 
+//************************************************************************
+
+//************************************************************************
+55  collection dokumentacia metody 
+//************************************************************************
+
+//************************************************************************
+56
+<strong>{{ str_plural('comment', $post->comments->count() )}}</strong>
+pluratlizuje comment slovičko
+//************************************************************************
+
+//************************************************************************
+57  php artisan make:controller PostController --resource --model=Post
+vytvori všetko pre edit delete show show one atd . a naviaže ho pre model post
+//************************************************************************
+
+//************************************************************************
+58
+
+//posts 
+Route::resource('post', 'PostController');
+spraví všetky routy automaticky 
+//************************************************************************
+
+//************************************************************************
+59 Route::get('/', 'PostController@index' );
+//************************************************************************
+
+//************************************************************************
+60 z page controlera  do post
+return view('welcome', [
+  'posts' => Post::latest()->get(),
+]);
+pages smažeme 
+//************************************************************************
+
+//************************************************************************
+61 novy view folder posts
+presunieme tam welcome aj article 
+//************************************************************************
+
+//************************************************************************
+62          //
+return view('posts.index', [
+    'posts' => Post::latest()->get(),
+]);
+v post controlery 
+//************************************************************************
+
+//************************************************************************
+63
+@include('posts.article') v index view php 
+//************************************************************************
+
+//************************************************************************
+64
+public function show(Post $post)
+{
+    //
+    return view('posts.show', [
+        'post' => $post,
+    ]);
+}
+
+//************************************************************************
+
+//************************************************************************
+65
+/posts/show.blade.php
+//************************************************************************
+
+//************************************************************************
+66
+show.blade.php
+
+@extends('layouts.master')
+
+@section('content')
+
+    @include('posts.article')
+    
+@endsection
+//************************************************************************
+
+//************************************************************************
+67
+<header>
+<h2 class="title">
+    <a href="/post/{{ $post->id}}">
+        {{ $post->title }}
+    </a>
+</h2>
+</header>
+//************************************************************************
+
+//************************************************************************
+68
+
+<footer class="meta">
+<a href="/users/{{ $post->user->id}}" class="author">
+    @<strong> {{ $post->user->name }}</strong>
+</a>
+</a>
+<a href="/post/{{ $post->id}}#comments" class="comments ">
+    {{ $post->comments->count() }} 
+    <strong>{{ str_plural('comment', $post->comments->count() )}}</strong>
+</footer>
+//************************************************************************
+
+//************************************************************************
+69
+<article class="post container col-8 {{ $type }}">
+//************************************************************************
+
+//************************************************************************
+70
+@include('posts.article', ['type' => 'listing'])  v index php 
+//************************************************************************
+
+//************************************************************************
+71    @include('posts.article', ['type' => 'full']) show blade
+//************************************************************************
+
+//************************************************************************
+72 
+@include('comments.index')
+
+//************************************************************************
+
+//************************************************************************
+73 vytvorili sme folder coomment  vo view
+tam show.blade.php
+index.blade.php
+.content+footer.meta>a.author+time
+//************************************************************************
+
+//************************************************************************
+74
+v17  2:30 ukazuje ako importuje do saas
+//************************************************************************
+
+//************************************************************************
+75 
+carbon dokumentacia 
+//************************************************************************
+
+//************************************************************************
+76
+<time datetime="{{$comment->created_at->toW3cString()}}">
+{{$comment->created_at->diffForHumans()}}
+</time>
+//************************************************************************
+
+//************************************************************************
+77
+ V18
+
+ @guest
+ <h1 class="title">som neprihlásený</h1>
+@endguest
+
+@auth
+ <h1>som prihlásený</h1>
+@endauth
+//************************************************************************
+
+//************************************************************************
+78
+@auth
+<code>
+    {{-- {{auth()->user()->name}} --}}
+    {{auth()->user()}}
+</code>
+@endauth
+//************************************************************************
+
+//************************************************************************
+79 middleware používa laravel na presmerovanie 
+//************************************************************************
+
+//************************************************************************
+80
+shift cmd RedirectIfAuthenticated.php na redirecty
+zemnim redirect
+možem aj v auth controlleroch redirecnut 
+
+//************************************************************************
+
+//************************************************************************
+81
+Route::get('/logout', 'Auth\LoginController@logout');
+v web.php routs
+//************************************************************************
+
+//************************************************************************
+82 DU naštudovať login atd blade.php formulare 
+//************************************************************************
+
+//************************************************************************
+83 create blade.php 
+v comments foldery 
+a tam text area atd
+//************************************************************************
+
+//************************************************************************
+84
+@auth
+@include('comments.create')
+@endauth
+
+iba ked sme prihlásený 
+//************************************************************************
+
+//************************************************************************
+85 spravime fo view navigation blade 
+
+{{-- LOGIN/REGISTER LINKS --}}
+@guest
+    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+    
+    @if (Route::has('register'))
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+        </li>
+    @endif
+
+@endguest
+
+@auth
+    {{-- Logged in user --}}
+
+    {{-- Logout link --}}
+
+@endauth
+//************************************************************************
+
+//************************************************************************
+86
+v routs Route::get('/', 'PostController@index' )->name('home');
+
+@dump(route('post.edit', 5))dumpne cestu  pre piaty post 
+alebo dopisať k 
+//************************************************************************
+
+//************************************************************************
+87
+<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+<a class="dropdown-item" href="{{ route('logout') }}"
+   onclick="event.preventDefault();
+                 document.getElementById('logout-form').submit();">
+    {{ __('Logout') }}
+</a>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>
+</div>
+
+
+//************************************************************************
+
+//************************************************************************
+88 
+// Route::get('/logout', 'Auth\LoginController@logout');
+vamazeme testovacie logout z routs
+//************************************************************************
+
+//************************************************************************
+89
+php artisan make:controller CommentController --resource --model=Comment
+
+//************************************************************************
+
+//************************************************************************
+90
+public function store(Request $request)
+{
+    return $request->all();
+  }
+  all vrati pole 
+  request iba, vrati pole 
+  return $request->only(['tect', 'post_id']);   len 
+  return $request->except(['tect', 'post_id']);  všetky okrem 
+  return $request->text;
+  return request();
+  return request(['text']);
+//************************************************************************
+
+//************************************************************************
+91
+{
+  // return $request->all();
+  Comment::create(
+      $request->all()
+  );
+  
+}
+do db 
+//************************************************************************
+
+//************************************************************************
+92
+
+v 22 videu vravi o hackeroch ako ti možu poslať do db 
+//************************************************************************
+
+//************************************************************************
+93
+
+v model comment musime určit čo može odísť do db ochrana laravelom pred 
+mass assignment
+protected $fillable = [
+  'text', 'post_id', 'user_id'
+];
+protected $guarded = [
+  'id', 'is_admin'
+];
+opak je $guarded
+
+//************************************************************************
+
+//************************************************************************
+94
+v controllery 
+return redirect()->back();
+return redirect('/post/'. $request->post_id. '#comments');
+
+//************************************************************************
+
+//************************************************************************
+95
+v23
+<input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+ vymažeme v create php 
+//************************************************************************
+
+//************************************************************************
+96
+auth()->user()->comments()->create(
+$request->all()
+); v controllery 
+//************************************************************************
+
+//************************************************************************
+97
+protected $fillable = [
+  'text', 'post_id'
+];   vymazeme user_id
+//************************************************************************
+
+//************************************************************************
+98
+
+<ol class="comment-list">
+@foreach ($post->comments->reverse() as $comment)
+<li>
+    @include('comments.show')
+</li>
+reverse otoči opačne 
+volanie na kolekcie 
+jedna z 90 metod 
+lepšie bude ich ale otočene vytiahnuť priam z databazy 
+//************************************************************************
+
+
+//************************************************************************
+99
+public function comments()
+{
+    return $this->hasMany(Comment::class)->latest();
+}
+v post modely a budu podla posledneho zoradené 
+alebo 
+
+return $this->hasMany(Comment::class)->orderedBy('id', 'DESC'); zostupne
+return $this->hasMany(Comment::class)->orderedBy('id', 'asc'); 
+return $this->hasMany(Comment::class)->orderedBy('text', 'asc'); abecedne
+//************************************************************************
+
+
+//************************************************************************
+100
+axios pozrieť
+//************************************************************************
+
+
+//************************************************************************
+101
+adresy ošetriť na mojej stranke
+//************************************************************************
+
+
+//************************************************************************
+102
+public function __construct()
+{
+    $this->middleware('auth');
+}
+do comment controlera 
+pred tym ako odpalis ktorukovelk s metod pod najprv vzdy najprv skontroluj ci j euser prihlaseny 
+
+//************************************************************************
+
+
+//************************************************************************
+103
+
+public function store(Request $request)
+{
+    $request->validate([
+        'text' => 'required',
+        'post_id' => 'required|integer',
+    ]);
+
+    auth()->user()->comments()->create(
+        $request->all()
+    );
+
+    dokumentacia 
+    availble validation rules 
+}
+//************************************************************************
+
+
+//************************************************************************
+103
+
+@if ($errors->any())
+<div class="container">
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endif nad formular
+ale dáme do noveho view
+
+@include('errors')
+
+//************************************************************************
+
+
+//************************************************************************
+104
+errors.view.php
+@if ($errors->any())
+<div class="container">
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endif
+//************************************************************************
+
+
+//************************************************************************
+105
+@include('errors')
+do kazdeho formulara možeme prihodiť
+no nedal som lebo laravel 8 to už zrejme ma pekne spravené 
+//************************************************************************
+
+
+//************************************************************************
+106
+|exists:posts,id nešlo 
+//************************************************************************
+
+
+//************************************************************************
+107
+V25 slug tam hovorí ako ma vyzerať db model a tak možne jednotne čislo 
+//************************************************************************
+
+
+//************************************************************************
+108
+
+public function getRouteKeyName()
+{
+    return 'slug';
+}
+a nepojde už adresa  post/1  ale post/slug
+//************************************************************************
+
+
+//************************************************************************
+109
+pomeníme slug kde treba article blade 
+//************************************************************************
+
+
+//************************************************************************
+110
+public function store(Request $request)
+{
+    $request->validate([
+        'text' => 'required',
+        'post_id' => 'required|integer|exists:posts,id',
+    ]);
+
+    $comment = auth()->user()->comments()->create(
+        $request->all()
+    );
+
+    // Comment::create(
+    //     $request->all()
+    // );
+
+    // return redirect()->back();
+    // return redirect('/post/'. $request->post_id. '#comments');
+    return redirect('/post/'. $comment->post->slug. '#comments');
+    
+}
+//************************************************************************
+
+
+//************************************************************************
+111
+php artisan make:migration add_unique_index_to_posts  vytvori novu migraciu posts
+//************************************************************************
+
+
+//************************************************************************
+112
+class AddUniqueIndexToPosts extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('posts', function (Blueprint $table) {
+            $table->unique('slug');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropUnique('slug');
+        });
+    }
+}
+//************************************************************************
+
+
+//************************************************************************
+113  php artisan migrate
+//************************************************************************
+
+
+//************************************************************************
+114
+pomože s efektivitou sql 
+return Post::with('comments')->latest()->get();
+//************************************************************************
+
+
+//************************************************************************
+115
+composer require laravel/telescope
+loguje a monitoruje a reportuje čo sa stalo na stranke 
+v dok ked budeme hladať v sekci eloquent výrečný znamená 
+//************************************************************************
+
+
+//************************************************************************
+116
+php artisan telescope:install
+php artisan migrate
+//************************************************************************
+
+
+//************************************************************************
+117
+http://localhost:8000/telescope/requests
+možeme si to tam zapnuž a budeme vidieť všetko čo sa deje 
+aj sekundy kolko to trva 
+//************************************************************************
+
+
+//************************************************************************
+118
+return view('posts.index', [
+  'posts' => Post::with('comments')->latest()->get(),
+]);
+v postcontroller
+//************************************************************************
+
+
+//************************************************************************
+119
+return view('posts.index', [
+  'posts' => Post::with('comments', 'user')->latest()->get(),
+]);
+
+takže používať telescope a eager loading
+//************************************************************************
+
+
+//************************************************************************
+120
+public function show(Post $post)
+{
+    $post->load('comments', 'comments.user');
+
+    return view('posts.show', [
+        'post' => $post,
+    ]);
+}
+//************************************************************************
+
+
+//************************************************************************
+121
+public function show(Post $post)
+{
+    $post->load('comments', 'comments.user');
+
+    return view('posts.show', compact('post'));
+}
+skratene ako vyššie 
+ak je rovnaky kluč ako premenna 
+//************************************************************************
+
+
+//************************************************************************
+122 V27
+
+stiahneme nejaku booostrap notifaction 
+//************************************************************************
+
+
+//************************************************************************
+123
+example component premenujeme na flashMessage a tak isto v app.js kde ju voláme 
+//************************************************************************
+
+
+//************************************************************************
+124
+<flash-message text="Komentár bol pridaný" ></flash-message>
+masteblade
+//************************************************************************
+
+
+//************************************************************************
+125
+v components 
+props: ["text"],
+sem sa prepošle text 
+//************************************************************************
+
+
+//************************************************************************
+126
+v28
+return redirect()->back();
+return back();
+//************************************************************************
+
+//************************************************************************
+127
+pozrieť cely flash.message.vue
+//************************************************************************
+
+//************************************************************************
+128
+
+return redirect('/post/'. $comment->post->slug. '#comments')
+->with('flash', 'komentár bol pridaný'); 
+pribalí sa do session  data komentae
+//************************************************************************
+
+
+//************************************************************************
+129
+<flash-message text="{{ session('flash')}}" ></flash-message>
+
+//************************************************************************
+
+
+//************************************************************************
+130
+pozrieť flash.message.vue
+pridané if text
+//************************************************************************
+
+//************************************************************************
+131
+Route::get('flash-me', function(){
+  session()->flash('flash', 'I am FLASHING YOU BRO');
+  return redirect('/');
+});
+hodi do flashu hodnotu ked prídeme na tu url
+//************************************************************************
+
+//************************************************************************
+132
+authenticateusers.php lebo v controlery bolo use 
+tam sme doplnili 
+$request->session()->flash('flash', 'Úspešne prihlásený');
+
+//************************************************************************
+
+//************************************************************************
+131
+nesmieš upravovať subory v adresary vendor aleob node modules
+//************************************************************************
+
+//************************************************************************
+132
+takže tu flash login lgout presunieme do login controllera ziskaju 
+preferenciu nad autheusers
+//************************************************************************
+
+//************************************************************************
+133
+V29
+app.js boostrap.sj flashmessage.vue
+tu sme všetko spravili 
+//************************************************************************
+
+//************************************************************************
+134
+<comment inline-template>  a može byť vo vnutri componentu nas kod 
+//************************************************************************
+
+//************************************************************************
+135
+<script>
+export default {
+	data() {
+		return {
+			visible: true
+		}
+	}
+	
+}
+</script>
+
+<style >
+
+</style>
+
+/////////////////////////////////////
+<comment inline-template>
+
+    <article class="comment col-4 container" @click="visible = false" v-show="visible">
+        <div class="content">
+            <p>
+                {{ $comment->text }}
+            </p>
+        </div>
+        <footer class="meta">
+            <a href="/users/{{ $comment->user->id }}" class="author">
+                @<strong> {{ $comment->user->name }}</strong>
+            </a>
+            <time datetime="{{ $comment->created_at->toW3cString() }}">
+                {{ $comment->created_at->diffForHumans() }}
+            </time>
+        </footer>
+    </article>
+    
+</comment>
+
+
+
+//************************************************************************
+
+//************************************************************************
+136
+
+<script>
+export default {
+	data() {
+		return {
+			editing: false
+		}
+	},
+
+	methods: {
+		updateComment() {
+			alert('SAVED!')
+			this.editing = false
+		}
+	}
+	
+}
+</script>
+
+<style lang="scss" scoped>
+	[contenteditable='true'] {
+		box-shadow: 0 2px 0 #fff;
+		outline: none;
+
+	}
+</style>
+
+////////////////////////
+<comment inline-template>
+
+    <article class="comment col-4 container" >
+        <div class="content"
+         @dblclick="editing = true"
+         @blur="updateComment"
+          :contenteditable="editing">
+            <p>
+                {{ $comment->text }}
+            </p>
+        </div>
+        <footer class="meta">
+            <a href="/users/{{ $comment->user->id }}" class="author">
+                @<strong> {{ $comment->user->name }}</strong>
+            </a>
+            <time datetime="{{ $comment->created_at->toW3cString() }}">
+                {{ $comment->created_at->diffForHumans() }}
+            </time>
+        </footer>
+    </article>
+    
+</comment>
+//************************************************************************
+
+//************************************************************************
+137
+@if ($comment->user_id == auth()->user()->id)
+<span class="controls">
+    <a @click="editing = true" class="edit">edit</a>
+    <a class="delete">x</a>
+</span>
+@endif
+
+edit delete linky sa zobrazia iba ak sa zhoduje prihlaseny s comend user id 
+skrateny zapis 
+@if ($comment->user_id == auth()->id())
+
+
+
+//************************************************************************
+
+//************************************************************************
+138
+https://laravel.com/docs/8.x/authorization#generating-policies
+
+php artisan make:policy CommentPolicy --model=Comment
+
+v APP pribudene policy 
+
+//************************************************************************
+
+//************************************************************************
+139
+najdeme AuthServiceProvider
+
+protected $policies = [
+    'App\Models\Model' => 'App\Policies\ModelPolicy',
+    'App\Comment' => 'App\Policies\CommentPolicy',
+];  
+//************************************************************************
+
+//************************************************************************
+140
+v CommentPolicy.php
+
+public function update(User $user, Comment $comment)
+{
+    return $comment->user_id == $user->id;
+}
+
+/**
+ * Determine whether the user can delete the model.
+ *
+ * @param  \App\Models\User  $user
+ * @param  \App\Models\Comment  $comment
+ * @return mixed
+ */
+public function delete(User $user, Comment $comment)
+{
+    return $comment->user_id == $user->id;
+}
+
+
+//************************************************************************
+
+//************************************************************************
+141
+@can('update', $comment)
+<span class="controls">
+    <a @click="editing = true" class="edit">edit</a>
+    <a class="delete">x</a>
+</span>
+@endcan
+
+
+existuje aj can not 
+//************************************************************************
+
+//************************************************************************
+142
+kedže chceme aby user delete a update robil 
+tak v coment policy staci funkcia update 
+ostatne zmažeme 
+//************************************************************************
+
+//************************************************************************
+143
+<comment :comment-data="{{$comment}}" inline-template>
+v show blade 
+dvolezitá dvojbodka vue bude brat text ako js object 
+//************************************************************************
+
+//************************************************************************
+144
+<a class="delete" @click="deleteComment" >x</a>
+
+//************************************************************************
+
+//************************************************************************
+145
+
+methods: {
+    updateComment() {
+        alert('SAVED!')
+        this.editing = false
+    },
+
+    deleteComment(){
+        
+    }
+//************************************************************************
+
+//************************************************************************
+146
+public function destroy(Comment $comment)
+{
+    $this->authorize('update', $comment);
+
+    $comment->delete();
+
+}
+//************************************************************************
+
+//************************************************************************
+147
+treba pozrieť vzdy route list 
+treba poslar request delete píše to tam na dresu comment / id 
+//************************************************************************
+
+//************************************************************************
+148
+<form action="/comments" method="POST" class="add-comment-form">
+    @csrf
+
+    @method('DELETE')
+
+    vzdy method post bude 
+    ale nizsie delete 
+    <form action="/comments/idečko" method="POST" class="add-comment-form">
+
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+//************************************************************************
+1
+//************************************************************************
+
+
+
+
+
+
+Copy
+<div class="progress">
+  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+
+
+
+
+<meta name="csrf-token" content="{{ csrf_token() }}">     proti hackerom 
+<title>{{ config('app.name', 'Laravel') }}</title>    vyttiahne app name ak nenajde bude s volat laravel 
+config app a tam je name ktory zas taha z env
+asse(vrat plnu cestu ako baseurl())
+public/ app.css app.js
+php artisan preset none vymaze presas adresare 
+php artisan preset react  nastavi na react 
+
+
+
+TOTO MI POMOHLO 
+'mysql' => [
+  'driver' => 'mysql',
+  'url' => env('DATABASE_URL'),
+  'host' => env('DB_HOST', 'localhost'),
+  'port' => env('DB_PORT', '3306'),
+  'database' => env('DB_DATABASE', 'skuska'),
+  'username' => env('DB_USERNAME', 'root'),
+  'password' => env('DB_PASSWORD', 'root'),
+  'unix_socket' => env('UNIX_SOCKET', '/Applications/MAMP/tmp/mysql/mysql.sock'),            'charset' => 'utf8mb4',
+  'collation' => 'utf8mb4_unicode_ci',
+  'prefix' => '',
+  'prefix_indexes' => true,
+  'strict' => true,
+  'engine' => null,
+  'options' => extension_loaded('pdo_mysql') ? array_filter([
+      PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+  ]) : [],
+],
+
+15 php artisan migrate
+
+
+16 dump logged users 
+ {{dd($posts)}}  vypíše nám ako pre_r 
+ @dump($posts) tiež vypíše  --}}
+     <div class="content">'
+            @dump (auth()->user())
+            @dump (auth()->user()->id)
+            @dump (auth()->user()->name)
+            @dump (auth()->user()->email)
+    </div>     
+
+
+
+
+php artisan -  na vyber mi dá veci ako vytvoriť controller a tak 
+
+php artisan make:controller PagesController    
+
+
+// --------------------------V02 LARAVEL 02-------------------------
+
+artisan route list do cmd v vs code zisti ake adresy mi existuju 
+
+
+pozriet si snippety b:  
+
+@dumb($posts) dunpne posty 
+// ----------------------------------------------------------------
+// *****************************************************************
+// *****************************************************************
+// --------------------------V02 LARAVEL 03 login ------------------
+
+vypisanie .env pripojenie do db 
+
+php artisan make:auth     
+
+pozrieť si layouts vo views  app blade layout
+
+php artisan migrate v novom tabe terminalu 
+
+php artisan make:migration CreateCommentsTable
+
+
+

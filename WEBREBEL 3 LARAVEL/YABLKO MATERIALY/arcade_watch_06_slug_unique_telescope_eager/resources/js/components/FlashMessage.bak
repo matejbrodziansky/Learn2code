@@ -1,0 +1,67 @@
+<template>
+	<transition name="fade">
+		<div
+		    class="notification flash is-success"
+		    v-show="show"
+		>
+			<button
+			    @click="hide"
+			    class="delete"
+			></button>
+
+			{{ text }}
+		</div>
+	</transition>
+</template>
+
+
+<script>
+export default {
+	props: ["text"],
+
+	data() {
+		return {
+			type: "success",
+			show: false
+		};
+	},
+
+	created() {
+		if (this.text) {
+			this.flash();
+		}
+	},
+
+	methods: {
+		flash() {
+			this.show = true;
+			setTimeout(() => this.hide(), 3000);
+		},
+		hide() {
+			this.show = false;
+		}
+	}
+};
+</script>
+
+
+<style lang="scss" scoped>
+.flash {
+	font-size: 1.2rem;
+	position: fixed;
+	right: 2em;
+	bottom: 2em;
+}
+
+/* skopcit z doku https://vuejs.org/v2/guide/transitions.html */
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.35s;
+}
+
+.fade-enter,
+.fade-leave-to {
+	opacity: 0;
+}
+</style>

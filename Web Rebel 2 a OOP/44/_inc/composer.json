@@ -1,0 +1,9 @@
+{
+    "require": {
+        "catfan/medoo": "^1.7",
+        "joseph-lenton/php-error": "dev-master",
+        "filp/whoops": "^2.12.0"
+    }
+
+    
+}

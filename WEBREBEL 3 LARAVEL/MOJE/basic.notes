@@ -1,0 +1,1238 @@
+//******************************************************
+TODO:
+[x]
+[!]
+[√]  
+option click
+
+unordered list:
+- item 1
+- IMPORTANT:  item 4
+
+
+
+Ordered list:
+1.    
+
+== 1 ==
+
+        @dump($data)
+        {{dd($data)}}
+
+
+
+-=---------------------SPORDOK-----------------------=-
+-=-----------------------VRCH------------------------=-
+-=--1--=-
+//-------------------------------------------------------
+
+//******************************************************
+== 0 ==
+
+composer create-project laravel/laravel LARAVEL_2
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+cache a storage bude treba permisony pomeniť pri nahravani na server (stare videa)
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 2 ==
+ak prekopirujeme kod netreba zabudnuť v env. zmeniť key 
+php artisan  a ukáže nam tam niekde key generate
+php artisan key:generate
+
+//------------------------------------------------------
+
+//******************************************************
+== 3 ==
+v config/app
+    'timezone' => 'Europe/Bratislava',
+
+
+
+//------------------------------------------------------
+
+
+-=-19 Routes Views Laravel IDE Helper na dopĺňanie kódu-=-
+//******************************************************
+== 4 ==
+ROUTES view  možeme vratit json
+return Response::json([
+    'error' => 1,
+    'message' => 'nieco',
+])
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 5 ==
+Route::get('/', function () {
+    return view('welcome');
+});
+get('/', function () {
+    return view('welcome');
+});
+post('about', function () {
+    return view('welcome');
+});  ze  ide post na about može byť aj delete atd
+
+
+//------------------------------------------------------
+
+
+//******************************************************
+== 6 ==
+composer require --dev barryvdh/laravel-ide-helper
+potom by malo v routes doplnat samé 
+
+//------------------------------------------------------
+
+
+-=-20 Laravel Views HTML šablóny Master layout-=-
+//******************************************************
+== 7 ==
+vytvorime master.blade.php
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 8 ==
+master.blade
+<body class="antialiased">
+    <div class="content">
+        @yield('content')
+    </div>
+</body>
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 9 ==
+welcome.blade.php@extends('master')
+
+@section('content')
+    <div class="content">
+        <h1 class="title">Laravel 5 </h1>
+    </div>  
+@endsection
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 10 ==
+about.blade.php
+
+extends('master')
+
+@section('content')
+    <div class="content">
+        <h1 class="title">About</h1>
+    </div>  
+@endsection
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 11 ==
+    <title>@yield('title') /LARAVEL</title>
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 12 ==
+contact blade
+
+
+@extends('master')
+
+@section('title', 'Contact')
+
+@section('content')
+    <div class="content">
+        <h1 class="title">Contact </h1>
+    </div>  
+@endsection
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 13 ==
+
+    <title>@yield('title', 'LARAVEL')</title>
+nebude title bude laravel 
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 14 ==
+master blade 
+<body class="antialiased">
+    <div class="content">
+        @yield('content')
+    </div>
+
+    @yield('footer')
+
+</body>
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 15 ==
+
+about.blade
+@section('footer')
+    <script>
+        alert('Hello')
+    </script>
+    
+@endsection
+
+
+
+//------------------------------------------------------
+
+-=-21 Premenné v šablónach 3 spôsoby posielania dát do views-=-
+//******************************************************
+== 16 ==
+web.php
+Route::get('/', function () {
+    $text = '(. Y .)';
+    return view('welcome', ['what' => $text]);
+});
+
+podobne
+Route::get('/', function () {
+    $text = '(. Y .)';
+    $data = [1,3];
+    return view('welcome', compact('text', 'data'));
+});
+
+dalšie
+
+Route::get('about', function () {
+    $text = 'HOCIČO';
+    return view('about')
+    ->with('text', $text);
+});
+
+nextone
+
+Route::get('contact', function () {
+    $text = 'NIEČO';
+    return view('contact')->withText($text);   
+});
+    // vytvory premnennu text alebo withBalls bolo by balls
+
+//------------------------------------------------------
+
+//******************************************************
+== 17 ==
+<body class="{{Request::segment(1)}}">
+odchyti z url about alebo contact alebo welcome a tak 
+
+
+
+//------------------------------------------------------
+
+-=-22 Controller REST Model View Controller MVC princíp-=-
+//******************************************************
+== 18 ==
+php artisan make:controller PagesController --resource
+
+//------------------------------------------------------
+
+//******************************************************
+== 19 ==
+PagesController.php
+
+class PagesController extends Controller
+{
+
+    public function index()
+    {
+        $text = '(. Y .)';
+
+        return view('welcome', compact('text'));
+    }
+
+    public function about()
+    {
+        $text = 'HOCIČO';
+
+        return view('about')
+            ->with('text', $text);
+    }
+
+    public function contact()
+    {
+        $text = 'NIEČO';
+        return view('contact')->withText($text);
+    }
+}
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 20 ==
+
+[!] Route::get('/', 'PagesController@index');
+[!] Route::get('/about', 'PagesController@about');
+[!] Route::get('/contact', 'PagesController@contact');
+[ ] 
+[√] use App\Http\Controllers\PagesController;  // musi byť hore 
+[√] Route::get('/', [PagesController::class,'index']);
+[√] Route::get('/about', [PagesController::class,'about']);
+[√] Route::get('/contact', [PagesController::class,'contact']);
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 21 ==
+presunieme si view ohladom pages do pages/views
+zmenime cesty 
+        return view('pages.welcome', compact('text'));
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 22 ==
+MVC MODEL VIEW CONTROLLER
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 23 ==
+abort('404')
+
+
+//------------------------------------------------------
+
+-=-24 Prehodenie HTML stránky do Laravelu Rozšírenie sekcíi Unescaped výpisy-=-
+//******************************************************
+== 25 ==
+do public sme nakopirovali img a csska
+master sme nahradili html kodom 
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 26 ==
+hore 
+<?php $segment = Request::segment(1) ?>
+
+v kode 
+
+<body class="{{ $segment ?: 'home'}}">
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 27 ==
+    public function index()
+    {
+        return view('pages.welcome')
+            ->with('title', 'Kickass Website');
+    }
+    public function gallery()
+    {
+        return view('pages.gallery')
+            ->with('title', 'Sweet Gallery');
+    }
+    public function blog()
+    {
+        return view('pages.blog')
+            ->with('title', 'Big Words');
+    }
+    public function contact()
+    {
+        return view('pages.contact')
+            ->with('title', 'Send us an email');
+    }
+}
+
+potom všade 
+    <h1 class="shadow">{{$title}}</h1>
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 28 ==
+v master
+            @section('aside')
+                <h3>Buy our stuff</h3>
+
+                <p>
+                    This is a website, so obviously we are trying to sell you something.<br>
+                    Click here, so we can send you emails you don't want!
+                </p>
+
+                <a href="#" class="btn btn-green">Stuff to delete from your inbox</a>
+            @show
+
+            skecia bud rozšíritelná
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 29 ==
+v gallery
+
+@extends('master')
+
+@section('content')
+<section class="content container">
+    <h1 class="shadow">{{$title}}</h1>
+    <h2 class="shadow">It's got images in it.</h2>
+
+     <div class="image-grid group">
+        <img src="img/01.png" class="gallery-img" alt="ms marvel">
+        <img src="img/02.png" class="gallery-img" alt="ms marvel">
+        <img src="img/03.png" class="gallery-img" alt="ms marvel">
+        <img src="img/04.png" class="gallery-img" alt="ms marvel">
+        <img src="img/05.png" class="gallery-img" alt="ms marvel">
+        <img src="img/06.png" class="gallery-img" alt="ms marvel">
+    </div>
+</section>
+{{-- @endsection --}}
+@stop
+
+
+@section('aside')
+
+    @parent    // zostane aj povodna section, be ztoho nie 
+
+    <p>I AM SPECIAL</p>    
+@stop
+
+zmení aside proste 
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 30 ==
+
+{{ $hackz }}
+{!! $hackz !!}     takto ked chceme daky script poslať cez
+ premnennu  z controlleru 
+
+
+
+//------------------------------------------------------
+
+-=-25 Ako získať všetky routes  Berte pravidlá s rezervou-=-
+//******************************************************
+== 31 ==
+
+    <title>@yield('title', $title ?: 'Kickass Website')</title>
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 32 ==
+v web.php
+[!] foreach ( Route::getRoutes() as $route) {
+[!] 
+    [!] dd($route);
+[!] }
+[!] foreach ( Route::getRoutes() as $route) {
+[!] 
+      [!] dd($route->getPath()); // konkretna cesta ale nejde 
+[!] }
+[!] 
+[√] $routes = array_map(function (\Illuminate\Routing\Route $route) 
+    [√] { return $route->uri; }, (array) Route::getRoutes()->getIterator());  toto niečo aj robí 
+[√] 
+
+//------------------------------------------------------
+
+-=-26 Namespaces Ako zdieľať dáta poslať dáta do všetkých views-=-
+//******************************************************
+== 33 ==
+    public function __construct()
+    {
+        
+    }
+    toto sa spusti ešte pred routes
+    spustí sa sám 
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 34 ==
+
+    [!] public function __construct()
+    [!] {
+        [!] $paths = [];
+[!] 
+        [!] foreach ( Route::getRoutes() as $route) {
+            [!] // dd($route->getPath());
+[!] 
+            [!] echo '<pre>';
+            [!] print_r($route->getActionMethod());
+            [!] echo '</pre>';
+        [!] }
+    [!] }
+    trochu ide
+// $routes = array_map(function (\Illuminate\Routing\Route $route)
+//{ return $route->uri; }, (array) Route::getRoutes()->getIterator());
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 35 ==
+
+    [!] public function __construct()
+    [!] {
+        [!] $paths = [];
+[!] 
+        [!] foreach (Route::getRoutes() as $route) {
+            [!] // dd($route->getPath());
+            [!] if ($route->getActionMethod()[0] !== 'GET') continue;
+[!] 
+            [!] // $path = $route->getPath();
+            [!] $path = $route->uri();
+[!] 
+            [!] $paths[$path] = $path === '/' ? 'Home' : ucfirst($path);
+[!] 
+            [!] // echo '<pre>';
+            [!] // print_r($route->getActionMethod());
+            [!] // echo '</pre>';
+        [!] }
+[!] 
+        [!] $paths = array_unique($paths);
+[!] 
+        [!] // echo '<pre>';
+        [!] // print_r($paths);
+        [!] // echo '</pre>';
+[!] 
+        [!] view()->share('nav_links', $paths);   // bude premenna navlinks 
+    [!] }
+
+
+
+
+//------------------------------------------------------
+
+-=-27 URL parametre Ako odchytiť všetky adresy jedna route pre všetko-=-
+//******************************************************
+== 36 ==
+
+if $path === reuqes segment 1
+strong name strong
+
+elseif  $path == '/' && !Request::segment(1)
+strong name 
+else
+a href 
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 37 ==
+
+@if (trim($path, '/') == Request::segment(1) )
+ <strong>{{ $name }}</strong>
+ @else
+ <a href ............
+ @endif
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 38 ==
+
+4:30 hovori o slug atd v url 
+Route::get('/blog/{id}/{slug}', [PagesController::class,'blog']);
+Route::get('/blog/{id}/{slug?}', [PagesController::class,'blog']);
+
+    public function blog( $id,  $slug = '' )
+    {
+        return view('pages.blog')
+            ->with('title', 'Big Words');
+    }
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 39 ==
+
+regularny expresion
+
+Route::get('/blog/{id}/{slug?}', [PagesController::class,'blog'])
+ ->where('id', '[0-9]+')
+ ->where('slug', '[a-z-9]+')
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 40 ==
+
+[!] Route::get('{page}', function($page){
+    [!] dd($page);
+[!] })-where('page', '.*');
+[!] 
+[!] 
+
+[!] Route::get('{page}', function($page){
+[!] 
+    [!] if ($page === '/') $page = 'welcome';
+[!] 
+    [!] if ( ! view()->exists("pages.$page") ){
+        [!] abort(404);
+    [!] }
+[!] 
+    [!] return view("pages.$page")
+    [!] ->withNavLinks([])
+    [!] ->withTitle('Title, hey')
+[!] })-where('page', '.*');
+
+//------------------------------------------------------
+
+-=-28 Pridávanie Laraval packagov HTML Form Builder CSRF-=-
+//******************************************************
+== 41 ==
+
+composer require laravelcollective/html
+
+app.php treba doplniť providers
+https://ekimunyime.medium.com/working-with-forms-in-laravel-8-a28283301622
+
+
+         Collective\Html\HtmlServiceProvider::class,
+
+
+
+        'Form' => Collective\Html\FormFacde::class,
+        'Html' => Collective\Html\HtmlFacde::class,
+
+composer require laravelcollective/html 
+toto pomohlo 
+https://stackoverflow.com/questions/32795154/laravel-5-class-collective-html-htmlserviceprovider-not-found-on-aws
+netrebalo ani to nad tým 
+
+    {!! Form::open([ 'url' => 'contact', 'class' ])  !!}
+        {{!! Form::close() !!}}
+
+
+{{!! crsf_field() !!}}  je dobre používať  
+sleduje token s prihlasenym užívatelom či sa zhoduje 
+
+
+    {!! Form::open([ 'files' => true, 'url' => 'contact', 'class' ])  !!}
+pridá sa formular na pridávanie uploadov 
+
+//------------------------------------------------------
+
+
+-=-29 Form Builder PART 2 Request method injection-=-
+
+//******************************************************
+== 42 ==
+najdeme si v laravel formbuilder
+aby sme vedeli typu a col atd pridávať do form    
+
+    {!! Form::open([ 'url' => 'contact', 'class' ])  !!}
+    
+        {!! Form::label('name', 'Your name  (requered)') !!}
+        {!! Form::text('name') !!}
+
+        {!! Form::label('emial', 'Your email  (requered)') !!}
+        {!! Form::email('email') !!}
+
+        {!! Form::label('message', 'Your message') !!}
+        {!! Form::textarea('message', null, ['cols' => 40, 'row' => 10]) !!}
+        
+        {!! Form::button('Send', ['type' => 'submit', 'class' => '']) !!}
+
+    {!! Form::close() !!}
+
+
+
+//------------------------------------------------------
+
+
+
+//******************************************************
+== 43 ==
+
+Route::post('contact', [PagesController::class,'store']);
+
+a v pages controllery 
+
+    public function store()
+    {
+        dd($_POST);
+    }
+
+
+
+   public function store()
+    {
+        dd( \Request::all());
+    }
+    výsledok bude presne ten istý 
+
+    alebo 
+            dd( \Request::input('message'));
+
+    alebo    vrati to true 
+        dd( \Request::exists('email'));
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 44 ==
+
+   public function store(Request $request)
+    {
+        dd( $request->all());
+    }
+
+
+
+//------------------------------------------------------
+
+-=-30 Validácia PART 1 zobrazenie validačných errorov predvypĺňanie inputov-=-
+//******************************************************
+== 45 ==
+Illuminate\Validation\ValidationDataor nemusiem mať potom lomítko  \route a tak 
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 46 ==
+
+        [!] $validator = Validator::make();  
+
+            public function store(Request $request)
+    {
+        //dd($request->all());
+
+        [√] $validator = $request->validate([
+            [√] 'name' => 'required',
+            [√] 'email' => 'required|email',
+        [√] ]);
+
+      //  dd($validator);
+
+
+        // if ($validator->fails() ){
+        //     return back();
+        // }
+
+        dd('YAYYYY');
+    }
+
+v dokumentaci je čo všetko sa dá kontrlovať dátumy a tak . 
+dátum skor alebo neskor 
+jedno z pravidiel eje confirmed 
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 47 ==
+
+v contact.blade.php 
+    {{ dd($errors) }} 
+    lebo ked zle vyplníme formulár tak sa uloží session errors
+    {{ dd($errors->all()) }}  vrati iba errors
+alebo 
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        z laravel dok 
+
+//------------------------------------------------------
+
+-=-31 Validácia PART 2 uloženie do databázy flash message-=-
+//******************************************************
+== 48 ==
+
+        {!! Form::open(['url' => 'contact', 'class']) !!}
+
+            {!! $errors->first('name', '<p class="alert alert-danger">:message</p>') !!}
+            {!! Form::label('name', 'Your name  (requered)') !!}
+            {!! Form::text('name') !!}
+
+            {!! $errors->first('email', '<p class="alert alert-danger">:message</p>') !!}           
+            {!! Form::label('email', 'Your email  (requered)') !!}
+            {!! Form::email('email') !!}
+
+            {!! Form::label('message', 'Your message') !!}
+            {!! Form::textarea('message', null, ['cols' => 40, 'row' => 10]) !!}
+
+            {!! Form::button('Send', ['type' => 'submit', 'class' => '']) !!}
+
+        {!! Form::close() !!}
+
+        daju sa aj takto chyby zobrazovať 
+
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 49 ==
+
+pridaný socket do database.php aby šlo migrate
+php artisan migrate reset 
+vrati tabulky možem znova migrate do db 
+
+ctrl c odstaví proces v console  ked trbea niečo zabiť  potom možeme sputiť 
+niekedy treba php artisan congif:clear
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 50 ==
+ked prejde validacia chcem použiť databazu 
+v PagesController
+use Illuminate\Support\Facades\DB ;
+
+DB::table('messages')
+            ->insert( $request->all() );
+
+            nepojde lebo nechcem token insertnuť
+
+                    DB::table('messages')
+            ->insert( $request->except('_token') );
+            malo by ísť 
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 51 ==
+
+    public function store(Request $request)
+    {
+        //dd($request->all());
+
+        $validator = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        DB::table('messages')
+            ->insert( $request->except('_token') );
+
+        return redirect()->back()
+            ->with('message', 'thanks!');
+    }
+
+
+message sa uloží v sesstion 
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 52 ==
+
+        @if ( session()->has('message'))
+            <div class="alert alert-succes">
+                <p>{{ session('message') }}</p>
+            </div>
+        @endif 
+
+
+vypíše nám ten message 
+
+
+
+//------------------------------------------------------
+
+
+-=- 32 Blade 2 2002 by Guillermo del Toro  forelse unless include partials-=-
+//******************************************************
+== 54 ==
+
+v pages controller
+  public function gallery()
+    {
+
+
+        $images = [
+            'img/01.png', 'img/02.png', 'img/03.png',
+            'img/04.png', 'img/05.png', 'img/06.png',
+        ];
+
+        return view('pages.gallery')
+            ->with('title', 'Sweet Gallery')
+            ->with('images', $images);
+    }
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 55 ==
+
+      <div class="image-grid group">
+
+            @foreach ($images as $img)
+                <img src="{{ asset($img) }}" class="gallery-img" alt="ms marvel">
+            @endforeach
+            {{-- <img src="img/01.png" class="gallery-img" alt="ms marvel"> --}}
+        </div>
+
+gallery.blade.php
+
+//------------------------------------------------------
+
+//******************************************************
+== 56 ==
+
+       @if ($images)
+                @foreach ($images as $img)
+                    <img src="{{ asset($img) }}" class="gallery-img" alt="ms marvel">
+                @endforeach
+            @else
+                <p class="alert alert-danger">nothing to show :(</p>
+                
+            @endif
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 57 ==
+
+            @forelse ($images as $img)
+                <img src="{{ asset($img) }}" class="gallery-img" alt="ms marvel">
+            @empty
+            @else
+                <p class="alert alert-danger">nothing to show :(</p>
+            @endforelse
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 58 ==
+
+@unless ( can_edit() )
+    p nemas pravoa
+@endunless
+
+
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 59 ==
+
+view vytvorime  patrials/errors.blade.php
+
+šlahneme tam toto z contact blade 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif --}}
+     
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 60 ==
+
+@include('patrials.error')
+v contact.blade.php
+
+//------------------------------------------------------
+
+//******************************************************
+== 61 ==
+
+Vytvoríme v patrials message.blade.php
+
+<div class="alert alert-{{ $type }}">
+    <p>{{ $message }}</p>
+</div> tam dáme 
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 62 ==
+contact
+        @if ( session()->has('message'))
+            @include('patrials.message', ['message' => session('message'), 'type' => 'succes'])
+        @endif  
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
+//******************************************************
+== 1 ==
+
+
+
+//------------------------------------------------------
+
